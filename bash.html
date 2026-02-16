@@ -8,980 +8,818 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --bg: #0d0d0d;
-        --surface: #141414;
-        --border: #222;
-        --accent: #22c55e;
-        --accent2: #4ade80;
-        --text: #e5e5e5;
-        --muted: #666;
-        --code-bg: #1a1a1a;
-        --green: #4ade80;
-        --blue: #60a5fa;
-        --purple: #a78bfa;
-        --red: #f87171;
-        --yellow: #fbbf24;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: "Syne", sans-serif;
-        min-height: 100vh;
-        padding: 48px 24px;
-      }
-
-      header {
-        max-width: 1100px;
-        margin: 0 auto 48px;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 24px;
-      }
-
-      header h1 {
-        font-size: clamp(2rem, 5vw, 3.5rem);
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        line-height: 1;
-      }
-
-      header h1 span {
-        color: var(--accent);
-      }
-
-      header p {
-        font-size: 0.85rem;
-        color: var(--muted);
-        font-family: "JetBrains Mono", monospace;
-      }
-
-      .grid {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 20px;
-      }
-
-      .card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        overflow: hidden;
-      }
-
-      .card-header {
-        padding: 14px 18px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .card-header .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent);
-        flex-shrink: 0;
-      }
-
-      .card-header h2 {
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--accent);
-      }
-
-      .commands {
-        padding: 8px 0;
-      }
-
-      .cmd {
-        padding: 10px 18px;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 4px;
-        border-bottom: 1px solid var(--border);
-        transition: background 0.15s;
-      }
-
-      .cmd:last-child {
-        border-bottom: none;
-      }
-
-      .cmd:hover {
-        background: rgba(34, 197, 94, 0.04);
-      }
-
-      .cmd code {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.8rem;
-        color: var(--green);
-        white-space: pre-wrap;
-        word-break: break-all;
-      }
-
-      .cmd code .flag {
-        color: var(--blue);
-      }
-      .cmd code .arg {
-        color: var(--purple);
-      }
-      .cmd code .keyword {
-        color: var(--yellow);
-      }
-      .cmd code .var {
-        color: var(--accent2);
-      }
-
-      .cmd .desc {
-        font-size: 0.78rem;
-        color: var(--muted);
-        line-height: 1.4;
-      }
-
-      .tag {
-        display: inline-block;
-        font-size: 0.6rem;
-        font-family: "JetBrains Mono", monospace;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        padding: 2px 6px;
-        border-radius: 3px;
-        font-weight: 700;
-        margin-left: 6px;
-        vertical-align: middle;
-      }
-
-      .tag-danger {
-        background: rgba(248, 113, 113, 0.15);
-        color: var(--red);
-      }
-      .tag-tip {
-        background: rgba(74, 222, 128, 0.1);
-        color: var(--green);
-      }
-
-      .wide {
-        grid-column: 1 / -1;
-      }
-
-      @media (max-width: 600px) {
-        .wide {
-          grid-column: unset;
-        }
-        header {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header>
-      <h1>Bash <span>Cheat Sheet</span></h1>
-      <p>v5.x · most useful commands</p>
-    </header>
-
-    <div class="grid">
-      <!-- NAVIGATION -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Navigation</h2>
-        </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>pwd</code>
-            <span class="desc">Print working directory</span>
-          </div>
-          <div class="cmd">
-            <code>cd <span class="arg">&lt;dir&gt;</span></code>
-            <span class="desc">Change directory</span>
-          </div>
-          <div class="cmd">
-            <code>cd ..</code>
-            <span class="desc">Move up one directory</span>
-          </div>
-          <div class="cmd">
-            <code>cd ~</code>
-            <span class="desc">Go to home directory</span>
-          </div>
-          <div class="cmd">
-            <code>cd -</code>
-            <span class="desc"
-              >Go to previous directory
-              <span class="tag tag-tip">handy</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code>pushd <span class="arg">&lt;dir&gt;</span></code>
-            <span class="desc">Save current dir and move to another</span>
-          </div>
-          <div class="cmd">
-            <code>popd</code>
-            <span class="desc">Return to saved directory</span>
-          </div>
-        </div>
+  <body class="bash-page">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-brand">
+          <span class="terminal-icon">▶</span>
+          <span>Dev Cheatsheets</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="bash.html" class="bash-link active">Bash</a></li>
+          <li><a href="git.html" class="git-link">Git</a></li>
+        </ul>
       </div>
+    </nav>
 
-      <!-- FILE OPERATIONS -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>File Operations</h2>
-        </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>ls <span class="flag">-lah</span></code>
-            <span class="desc"
-              >List files with details, hidden, human-readable
-              <span class="tag tag-tip">handy</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code>touch <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc">Create empty file or update timestamp</span>
-          </div>
-          <div class="cmd">
-            <code
-              >cp <span class="arg">&lt;src&gt;</span>
-              <span class="arg">&lt;dest&gt;</span></code
-            >
-            <span class="desc">Copy file</span>
-          </div>
-          <div class="cmd">
-            <code
-              >cp <span class="flag">-r</span>
-              <span class="arg">&lt;src&gt;</span>
-              <span class="arg">&lt;dest&gt;</span></code
-            >
-            <span class="desc">Copy directory recursively</span>
-          </div>
-          <div class="cmd">
-            <code
-              >mv <span class="arg">&lt;src&gt;</span>
-              <span class="arg">&lt;dest&gt;</span></code
-            >
-            <span class="desc">Move or rename file</span>
-          </div>
-          <div class="cmd">
-            <code>rm <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc">Remove file</span>
-          </div>
-          <div class="cmd">
-            <code
-              >rm <span class="flag">-rf</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc"
-              >Remove directory recursively
-              <span class="tag tag-danger">destructive</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code
-              >mkdir <span class="flag">-p</span>
-              <span class="arg">&lt;path/to/dir&gt;</span></code
-            >
-            <span class="desc">Create directory with parent directories</span>
-          </div>
-          <div class="cmd">
-            <code>rmdir <span class="arg">&lt;dir&gt;</span></code>
-            <span class="desc">Remove empty directory</span>
-          </div>
-        </div>
-      </div>
+    <main>
+      <header>
+        <h1>Bash <span>Cheat Sheet</span></h1>
+      </header>
 
-      <!-- FILE VIEWING -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>File Viewing</h2>
-        </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>cat <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc">Display entire file</span>
+      <div class="grid">
+        <!-- NAVIGATION -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Navigation</h2>
           </div>
-          <div class="cmd">
-            <code>less <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc"
-              >View file with scrolling
-              <span class="tag tag-tip">better than more</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code
-              >head <span class="flag">-n</span> <span class="arg">10</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Show first 10 lines</span>
-          </div>
-          <div class="cmd">
-            <code
-              >tail <span class="flag">-n</span> <span class="arg">10</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Show last 10 lines</span>
-          </div>
-          <div class="cmd">
-            <code
-              >tail <span class="flag">-f</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc"
-              >Follow file updates in real time
-              <span class="tag tag-tip">for logs</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code
-              >wc <span class="flag">-l</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Count lines in file</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SEARCH & FIND -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Search & Find</h2>
-        </div>
-        <div class="commands">
-          <div class="cmd">
-            <code
-              >grep <span class="arg">"pattern"</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Search for pattern in file</span>
-          </div>
-          <div class="cmd">
-            <code
-              >grep <span class="flag">-r</span>
-              <span class="arg">"pattern"</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc">Search recursively in directory</span>
-          </div>
-          <div class="cmd">
-            <code
-              >grep <span class="flag">-i</span>
-              <span class="arg">"pattern"</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Case-insensitive search</span>
-          </div>
-          <div class="cmd">
-            <code
-              >grep <span class="flag">-v</span>
-              <span class="arg">"pattern"</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Invert match — show non-matching lines</span>
-          </div>
-          <div class="cmd">
-            <code
-              >find <span class="arg">&lt;dir&gt;</span>
-              <span class="flag">-name</span>
-              <span class="arg">"*.txt"</span></code
-            >
-            <span class="desc">Find files by name pattern</span>
-          </div>
-          <div class="cmd">
-            <code
-              >find <span class="arg">&lt;dir&gt;</span>
-              <span class="flag">-type f -mtime</span>
-              <span class="arg">-7</span></code
-            >
-            <span class="desc">Find files modified in last 7 days</span>
-          </div>
-          <div class="cmd">
-            <code>locate <span class="arg">&lt;filename&gt;</span></code>
-            <span class="desc">Fast search using database</span>
-          </div>
-          <div class="cmd">
-            <code>which <span class="arg">&lt;command&gt;</span></code>
-            <span class="desc">Show path of executable</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PERMISSIONS -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Permissions</h2>
-        </div>
-        <div class="commands">
-          <div class="cmd">
-            <code
-              >chmod <span class="arg">755</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Set rwxr-xr-x permissions</span>
-          </div>
-          <div class="cmd">
-            <code
-              >chmod <span class="flag">+x</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Make file executable</span>
-          </div>
-          <div class="cmd">
-            <code
-              >chmod <span class="flag">-R</span> <span class="arg">644</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc">Set permissions recursively</span>
-          </div>
-          <div class="cmd">
-            <code
-              >chown <span class="arg">&lt;user&gt;</span>:<span class="arg"
-                >&lt;group&gt;</span
+          <div class="commands">
+            <div class="cmd">
+              <code>pwd</code>
+              <span class="desc">Print working directory</span>
+            </div>
+            <div class="cmd">
+              <code>cd <span class="arg">&lt;dir&gt;</span></code>
+              <span class="desc">Change directory</span>
+            </div>
+            <div class="cmd">
+              <code>cd ..</code>
+              <span class="desc">Move up one directory</span>
+            </div>
+            <div class="cmd">
+              <code>cd ~</code>
+              <span class="desc">Go to home directory</span>
+            </div>
+            <div class="cmd">
+              <code>cd -</code>
+              <span class="desc"
+                >Go to previous directory
+                <span class="tag tag-tip">handy</span></span
               >
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Change owner and group</span>
-          </div>
-          <div class="cmd">
-            <code
-              >chown <span class="flag">-R</span>
-              <span class="arg">&lt;user&gt;</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc">Change owner recursively</span>
-          </div>
-          <div class="cmd">
-            <code>sudo <span class="arg">&lt;command&gt;</span></code>
-            <span class="desc">Run command as root</span>
-          </div>
-          <div class="cmd">
-            <code>sudo <span class="flag">-i</span></code>
-            <span class="desc">Open root shell</span>
+            </div>
+            <div class="cmd">
+              <code>pushd <span class="arg">&lt;dir&gt;</span></code>
+              <span class="desc">Save current dir and move to another</span>
+            </div>
+            <div class="cmd">
+              <code>popd</code>
+              <span class="desc">Return to saved directory</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- PROCESSES -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Processes</h2>
+        <!-- FILE OPERATIONS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>File Operations</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code>ls <span class="flag">-lah</span></code>
+              <span class="desc"
+                >List files with details, hidden, human-readable
+                <span class="tag tag-tip">handy</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code>touch <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc">Create empty file or update timestamp</span>
+            </div>
+            <div class="cmd">
+              <code
+                >cp <span class="arg">&lt;src&gt;</span>
+                <span class="arg">&lt;dest&gt;</span></code
+              >
+              <span class="desc">Copy file</span>
+            </div>
+            <div class="cmd">
+              <code
+                >cp <span class="flag">-r</span>
+                <span class="arg">&lt;src&gt;</span>
+                <span class="arg">&lt;dest&gt;</span></code
+              >
+              <span class="desc">Copy directory recursively</span>
+            </div>
+            <div class="cmd">
+              <code
+                >mv <span class="arg">&lt;src&gt;</span>
+                <span class="arg">&lt;dest&gt;</span></code
+              >
+              <span class="desc">Move or rename file</span>
+            </div>
+            <div class="cmd">
+              <code>rm <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc">Remove file</span>
+            </div>
+            <div class="cmd">
+              <code
+                >rm <span class="flag">-rf</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc"
+                >Remove directory recursively
+                <span class="tag tag-danger">destructive</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code
+                >mkdir <span class="flag">-p</span>
+                <span class="arg">&lt;path/to/dir&gt;</span></code
+              >
+              <span class="desc">Create directory with parent directories</span>
+            </div>
+            <div class="cmd">
+              <code>rmdir <span class="arg">&lt;dir&gt;</span></code>
+              <span class="desc">Remove empty directory</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>ps <span class="flag">aux</span></code>
-            <span class="desc">List all running processes</span>
-          </div>
-          <div class="cmd">
-            <code
-              >ps <span class="flag">aux</span> | grep
-              <span class="arg">&lt;name&gt;</span></code
-            >
-            <span class="desc"
-              >Find specific process
-              <span class="tag tag-tip">handy</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code>top</code>
-            <span class="desc">Real-time process viewer</span>
-          </div>
-          <div class="cmd">
-            <code>htop</code>
-            <span class="desc">Better interactive process viewer</span>
-          </div>
-          <div class="cmd">
-            <code>kill <span class="arg">&lt;pid&gt;</span></code>
-            <span class="desc">Terminate process by ID</span>
-          </div>
-          <div class="cmd">
-            <code
-              >kill <span class="flag">-9</span>
-              <span class="arg">&lt;pid&gt;</span></code
-            >
-            <span class="desc"
-              >Force kill process
-              <span class="tag tag-danger">destructive</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code>killall <span class="arg">&lt;name&gt;</span></code>
-            <span class="desc">Kill all processes by name</span>
-          </div>
-          <div class="cmd">
-            <code>pkill <span class="arg">&lt;pattern&gt;</span></code>
-            <span class="desc">Kill processes matching pattern</span>
-          </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span>
-              <span class="keyword">&amp;</span></code
-            >
-            <span class="desc">Run command in background</span>
-          </div>
-          <div class="cmd">
-            <code>jobs</code>
-            <span class="desc">List background jobs</span>
-          </div>
-          <div class="cmd">
-            <code>fg <span class="arg">%1</span></code>
-            <span class="desc">Bring job 1 to foreground</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- PIPES & REDIRECTION -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Pipes & Redirection</h2>
-        </div>
-        <div class="commands">
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd1&gt;</span>
-              <span class="keyword">|</span>
-              <span class="arg">&lt;cmd2&gt;</span></code
-            >
-            <span class="desc">Pipe output to another command</span>
+        <!-- FILE VIEWING -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>File Viewing</h2>
           </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span>
-              <span class="keyword">&gt;</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Redirect output to file (overwrite)</span>
-          </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span>
-              <span class="keyword">&gt;&gt;</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Append output to file</span>
-          </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span>
-              <span class="keyword">2&gt;</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Redirect stderr to file</span>
-          </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span>
-              <span class="keyword">&amp;&gt;</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Redirect both stdout and stderr</span>
-          </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span>
-              <span class="keyword">&lt;</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Use file as input</span>
-          </div>
-          <div class="cmd">
-            <code
-              ><span class="arg">&lt;cmd&gt;</span> | tee
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Write to file and stdout simultaneously</span>
+          <div class="commands">
+            <div class="cmd">
+              <code>cat <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc">Display entire file</span>
+            </div>
+            <div class="cmd">
+              <code>less <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc"
+                >View file with scrolling
+                <span class="tag tag-tip">better than more</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code
+                >head <span class="flag">-n</span> <span class="arg">10</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Show first 10 lines</span>
+            </div>
+            <div class="cmd">
+              <code
+                >tail <span class="flag">-n</span> <span class="arg">10</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Show last 10 lines</span>
+            </div>
+            <div class="cmd">
+              <code
+                >tail <span class="flag">-f</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc"
+                >Follow file updates in real time
+                <span class="tag tag-tip">for logs</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code
+                >wc <span class="flag">-l</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Count lines in file</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- TEXT PROCESSING -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Text Processing</h2>
+        <!-- SEARCH & FIND -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Search & Find</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code
+                >grep <span class="arg">"pattern"</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Search for pattern in file</span>
+            </div>
+            <div class="cmd">
+              <code
+                >grep <span class="flag">-r</span>
+                <span class="arg">"pattern"</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc">Search recursively in directory</span>
+            </div>
+            <div class="cmd">
+              <code
+                >grep <span class="flag">-i</span>
+                <span class="arg">"pattern"</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Case-insensitive search</span>
+            </div>
+            <div class="cmd">
+              <code
+                >grep <span class="flag">-v</span>
+                <span class="arg">"pattern"</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Invert match — show non-matching lines</span>
+            </div>
+            <div class="cmd">
+              <code
+                >find <span class="arg">&lt;dir&gt;</span>
+                <span class="flag">-name</span>
+                <span class="arg">"*.txt"</span></code
+              >
+              <span class="desc">Find files by name pattern</span>
+            </div>
+            <div class="cmd">
+              <code
+                >find <span class="arg">&lt;dir&gt;</span>
+                <span class="flag">-type f -mtime</span>
+                <span class="arg">-7</span></code
+              >
+              <span class="desc">Find files modified in last 7 days</span>
+            </div>
+            <div class="cmd">
+              <code>locate <span class="arg">&lt;filename&gt;</span></code>
+              <span class="desc">Fast search using database</span>
+            </div>
+            <div class="cmd">
+              <code>which <span class="arg">&lt;command&gt;</span></code>
+              <span class="desc">Show path of executable</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>sort <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc">Sort lines alphabetically</span>
-          </div>
-          <div class="cmd">
-            <code
-              >sort <span class="flag">-n</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Sort numerically</span>
-          </div>
-          <div class="cmd">
-            <code>uniq <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc">Remove duplicate adjacent lines</span>
-          </div>
-          <div class="cmd">
-            <code>sort <span class="arg">&lt;file&gt;</span> | uniq</code>
-            <span class="desc"
-              >Remove all duplicates
-              <span class="tag tag-tip">handy</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code
-              >cut <span class="flag">-d</span> <span class="arg">','</span>
-              <span class="flag">-f</span> <span class="arg">1,3</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Extract columns 1 and 3 from CSV</span>
-          </div>
-          <div class="cmd">
-            <code
-              >awk <span class="arg">'{print $1}'</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Print first field of each line</span>
-          </div>
-          <div class="cmd">
-            <code
-              >sed <span class="arg">'s/old/new/g'</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Replace all occurrences of old with new</span>
-          </div>
-          <div class="cmd">
-            <code
-              >tr <span class="arg">'a-z'</span> <span class="arg">'A-Z'</span>
-              <span class="keyword">&lt;</span>
-              <span class="arg">&lt;file&gt;</span></code
-            >
-            <span class="desc">Convert lowercase to uppercase</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- ARCHIVING -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Archiving</h2>
+        <!-- PERMISSIONS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Permissions</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code
+                >chmod <span class="arg">755</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Set rwxr-xr-x permissions</span>
+            </div>
+            <div class="cmd">
+              <code
+                >chmod <span class="flag">+x</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Make file executable</span>
+            </div>
+            <div class="cmd">
+              <code
+                >chmod <span class="flag">-R</span> <span class="arg">644</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc">Set permissions recursively</span>
+            </div>
+            <div class="cmd">
+              <code
+                >chown <span class="arg">&lt;user&gt;</span>:<span class="arg"
+                  >&lt;group&gt;</span
+                >
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Change owner and group</span>
+            </div>
+            <div class="cmd">
+              <code
+                >chown <span class="flag">-R</span>
+                <span class="arg">&lt;user&gt;</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc">Change owner recursively</span>
+            </div>
+            <div class="cmd">
+              <code>sudo <span class="arg">&lt;command&gt;</span></code>
+              <span class="desc">Run command as root</span>
+            </div>
+            <div class="cmd">
+              <code>sudo <span class="flag">-i</span></code>
+              <span class="desc">Open root shell</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code
-              >tar <span class="flag">-czf</span>
-              <span class="arg">&lt;archive.tar.gz&gt;</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc"
-              >Create compressed tar archive
-              <span class="tag tag-tip">handy</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code
-              >tar <span class="flag">-xzf</span>
-              <span class="arg">&lt;archive.tar.gz&gt;</span></code
-            >
-            <span class="desc">Extract compressed tar archive</span>
-          </div>
-          <div class="cmd">
-            <code
-              >tar <span class="flag">-tzf</span>
-              <span class="arg">&lt;archive.tar.gz&gt;</span></code
-            >
-            <span class="desc">List contents without extracting</span>
-          </div>
-          <div class="cmd">
-            <code
-              >zip <span class="flag">-r</span>
-              <span class="arg">&lt;archive.zip&gt;</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc">Create zip archive</span>
-          </div>
-          <div class="cmd">
-            <code>unzip <span class="arg">&lt;archive.zip&gt;</span></code>
-            <span class="desc">Extract zip archive</span>
-          </div>
-          <div class="cmd">
-            <code
-              >unzip <span class="flag">-l</span>
-              <span class="arg">&lt;archive.zip&gt;</span></code
-            >
-            <span class="desc">List zip contents</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- SYSTEM INFO -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>System Info</h2>
+        <!-- PROCESSES -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Processes</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code>ps <span class="flag">aux</span></code>
+              <span class="desc">List all running processes</span>
+            </div>
+            <div class="cmd">
+              <code
+                >ps <span class="flag">aux</span> | grep
+                <span class="arg">&lt;name&gt;</span></code
+              >
+              <span class="desc"
+                >Find specific process
+                <span class="tag tag-tip">handy</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code>top</code>
+              <span class="desc">Real-time process viewer</span>
+            </div>
+            <div class="cmd">
+              <code>htop</code>
+              <span class="desc">Better interactive process viewer</span>
+            </div>
+            <div class="cmd">
+              <code>kill <span class="arg">&lt;pid&gt;</span></code>
+              <span class="desc">Terminate process by ID</span>
+            </div>
+            <div class="cmd">
+              <code
+                >kill <span class="flag">-9</span>
+                <span class="arg">&lt;pid&gt;</span></code
+              >
+              <span class="desc"
+                >Force kill process
+                <span class="tag tag-danger">destructive</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code>killall <span class="arg">&lt;name&gt;</span></code>
+              <span class="desc">Kill all processes by name</span>
+            </div>
+            <div class="cmd">
+              <code>pkill <span class="arg">&lt;pattern&gt;</span></code>
+              <span class="desc">Kill processes matching pattern</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span>
+                <span class="keyword">&amp;</span></code
+              >
+              <span class="desc">Run command in background</span>
+            </div>
+            <div class="cmd">
+              <code>jobs</code>
+              <span class="desc">List background jobs</span>
+            </div>
+            <div class="cmd">
+              <code>fg <span class="arg">%1</span></code>
+              <span class="desc">Bring job 1 to foreground</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>uname <span class="flag">-a</span></code>
-            <span class="desc">Show system information</span>
-          </div>
-          <div class="cmd">
-            <code>hostname</code>
-            <span class="desc">Display system hostname</span>
-          </div>
-          <div class="cmd">
-            <code>uptime</code>
-            <span class="desc">Show how long system has been running</span>
-          </div>
-          <div class="cmd">
-            <code>df <span class="flag">-h</span></code>
-            <span class="desc">Show disk usage, human-readable</span>
-          </div>
-          <div class="cmd">
-            <code
-              >du <span class="flag">-sh</span>
-              <span class="arg">&lt;dir&gt;</span></code
-            >
-            <span class="desc">Show directory size</span>
-          </div>
-          <div class="cmd">
-            <code>free <span class="flag">-h</span></code>
-            <span class="desc">Show memory usage</span>
-          </div>
-          <div class="cmd">
-            <code>lsblk</code>
-            <span class="desc">List block devices</span>
-          </div>
-          <div class="cmd">
-            <code>lscpu</code>
-            <span class="desc">Display CPU info</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- NETWORK -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Network</h2>
+        <!-- PIPES & REDIRECTION -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Pipes & Redirection</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd1&gt;</span>
+                <span class="keyword">|</span>
+                <span class="arg">&lt;cmd2&gt;</span></code
+              >
+              <span class="desc">Pipe output to another command</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span>
+                <span class="keyword">&gt;</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Redirect output to file (overwrite)</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span>
+                <span class="keyword">&gt;&gt;</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Append output to file</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span>
+                <span class="keyword">2&gt;</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Redirect stderr to file</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span>
+                <span class="keyword">&amp;&gt;</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Redirect both stdout and stderr</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span>
+                <span class="keyword">&lt;</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Use file as input</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="arg">&lt;cmd&gt;</span> | tee
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Write to file and stdout simultaneously</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code>ping <span class="arg">&lt;host&gt;</span></code>
-            <span class="desc">Test connectivity to host</span>
-          </div>
-          <div class="cmd">
-            <code>curl <span class="arg">&lt;url&gt;</span></code>
-            <span class="desc">Fetch URL content</span>
-          </div>
-          <div class="cmd">
-            <code
-              >curl <span class="flag">-O</span>
-              <span class="arg">&lt;url&gt;</span></code
-            >
-            <span class="desc">Download file from URL</span>
-          </div>
-          <div class="cmd">
-            <code>wget <span class="arg">&lt;url&gt;</span></code>
-            <span class="desc">Download file</span>
-          </div>
-          <div class="cmd">
-            <code>ip <span class="flag">addr</span></code>
-            <span class="desc">Show network interfaces</span>
-          </div>
-          <div class="cmd">
-            <code>netstat <span class="flag">-tuln</span></code>
-            <span class="desc">Show listening ports</span>
-          </div>
-          <div class="cmd">
-            <code>ss <span class="flag">-tuln</span></code>
-            <span class="desc"
-              >Modern alternative to netstat
-              <span class="tag tag-tip">faster</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code
-              >scp <span class="arg">&lt;file&gt;</span>
-              <span class="arg">&lt;user&gt;</span>@<span class="arg"
-                >&lt;host&gt;</span
-              >:<span class="arg">&lt;path&gt;</span></code
-            >
-            <span class="desc">Secure copy to remote host</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- VARIABLES & ENV -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Variables & Environment</h2>
+        <!-- TEXT PROCESSING -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Text Processing</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code>sort <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc">Sort lines alphabetically</span>
+            </div>
+            <div class="cmd">
+              <code
+                >sort <span class="flag">-n</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Sort numerically</span>
+            </div>
+            <div class="cmd">
+              <code>uniq <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc">Remove duplicate adjacent lines</span>
+            </div>
+            <div class="cmd">
+              <code>sort <span class="arg">&lt;file&gt;</span> | uniq</code>
+              <span class="desc"
+                >Remove all duplicates
+                <span class="tag tag-tip">handy</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code
+                >cut <span class="flag">-d</span> <span class="arg">','</span>
+                <span class="flag">-f</span> <span class="arg">1,3</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Extract columns 1 and 3 from CSV</span>
+            </div>
+            <div class="cmd">
+              <code
+                >awk <span class="arg">'{print $1}'</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Print first field of each line</span>
+            </div>
+            <div class="cmd">
+              <code
+                >sed <span class="arg">'s/old/new/g'</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Replace all occurrences of old with new</span>
+            </div>
+            <div class="cmd">
+              <code
+                >tr <span class="arg">'a-z'</span>
+                <span class="arg">'A-Z'</span>
+                <span class="keyword">&lt;</span>
+                <span class="arg">&lt;file&gt;</span></code
+              >
+              <span class="desc">Convert lowercase to uppercase</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code
-              ><span class="var">VAR</span>=<span class="arg"
-                >"value"</span
-              ></code
-            >
-            <span class="desc">Set variable</span>
-          </div>
-          <div class="cmd">
-            <code>echo <span class="var">$VAR</span></code>
-            <span class="desc">Print variable value</span>
-          </div>
-          <div class="cmd">
-            <code
-              >export <span class="var">VAR</span>=<span class="arg"
-                >"value"</span
-              ></code
-            >
-            <span class="desc">Set environment variable</span>
-          </div>
-          <div class="cmd">
-            <code>env</code>
-            <span class="desc">Show all environment variables</span>
-          </div>
-          <div class="cmd">
-            <code>printenv <span class="var">VAR</span></code>
-            <span class="desc">Print specific environment variable</span>
-          </div>
-          <div class="cmd">
-            <code>unset <span class="var">VAR</span></code>
-            <span class="desc">Remove variable</span>
-          </div>
-          <div class="cmd">
-            <code>source <span class="arg">&lt;file&gt;</span></code>
-            <span class="desc">Execute file in current shell</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- ALIASES & HISTORY -->
-      <div class="card">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Aliases & History</h2>
+        <!-- ARCHIVING -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Archiving</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code
+                >tar <span class="flag">-czf</span>
+                <span class="arg">&lt;archive.tar.gz&gt;</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc"
+                >Create compressed tar archive
+                <span class="tag tag-tip">handy</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code
+                >tar <span class="flag">-xzf</span>
+                <span class="arg">&lt;archive.tar.gz&gt;</span></code
+              >
+              <span class="desc">Extract compressed tar archive</span>
+            </div>
+            <div class="cmd">
+              <code
+                >tar <span class="flag">-tzf</span>
+                <span class="arg">&lt;archive.tar.gz&gt;</span></code
+              >
+              <span class="desc">List contents without extracting</span>
+            </div>
+            <div class="cmd">
+              <code
+                >zip <span class="flag">-r</span>
+                <span class="arg">&lt;archive.zip&gt;</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc">Create zip archive</span>
+            </div>
+            <div class="cmd">
+              <code>unzip <span class="arg">&lt;archive.zip&gt;</span></code>
+              <span class="desc">Extract zip archive</span>
+            </div>
+            <div class="cmd">
+              <code
+                >unzip <span class="flag">-l</span>
+                <span class="arg">&lt;archive.zip&gt;</span></code
+              >
+              <span class="desc">List zip contents</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code
-              >alias <span class="var">ll</span>=<span class="arg"
-                >'ls -lah'</span
-              ></code
-            >
-            <span class="desc">Create command alias</span>
-          </div>
-          <div class="cmd">
-            <code>alias</code>
-            <span class="desc">List all aliases</span>
-          </div>
-          <div class="cmd">
-            <code>unalias <span class="var">ll</span></code>
-            <span class="desc">Remove alias</span>
-          </div>
-          <div class="cmd">
-            <code>history</code>
-            <span class="desc">Show command history</span>
-          </div>
-          <div class="cmd">
-            <code>!<span class="arg">n</span></code>
-            <span class="desc">Execute command number n from history</span>
-          </div>
-          <div class="cmd">
-            <code>!!</code>
-            <span class="desc"
-              >Execute last command <span class="tag tag-tip">handy</span></span
-            >
-          </div>
-          <div class="cmd">
-            <code>sudo !!</code>
-            <span class="desc">Re-run last command as root</span>
-          </div>
-          <div class="cmd">
-            <code><span class="keyword">Ctrl+R</span></code>
-            <span class="desc">Reverse search command history</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- SCRIPTING BASICS -->
-      <div class="card wide">
-        <div class="card-header">
-          <div class="dot"></div>
-          <h2>Scripting Basics</h2>
+        <!-- SYSTEM INFO -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>System Info</h2>
+          </div>
+          <div class="commands">
+            <div class="cmd">
+              <code>uname <span class="flag">-a</span></code>
+              <span class="desc">Show system information</span>
+            </div>
+            <div class="cmd">
+              <code>hostname</code>
+              <span class="desc">Display system hostname</span>
+            </div>
+            <div class="cmd">
+              <code>uptime</code>
+              <span class="desc">Show how long system has been running</span>
+            </div>
+            <div class="cmd">
+              <code>df <span class="flag">-h</span></code>
+              <span class="desc">Show disk usage, human-readable</span>
+            </div>
+            <div class="cmd">
+              <code
+                >du <span class="flag">-sh</span>
+                <span class="arg">&lt;dir&gt;</span></code
+              >
+              <span class="desc">Show directory size</span>
+            </div>
+            <div class="cmd">
+              <code>free <span class="flag">-h</span></code>
+              <span class="desc">Show memory usage</span>
+            </div>
+            <div class="cmd">
+              <code>lsblk</code>
+              <span class="desc">List block devices</span>
+            </div>
+            <div class="cmd">
+              <code>lscpu</code>
+              <span class="desc">Display CPU info</span>
+            </div>
+          </div>
         </div>
-        <div class="commands">
-          <div class="cmd">
-            <code><span class="keyword">#!/bin/bash</span></code>
-            <span class="desc">Shebang — first line of script</span>
+
+        <!-- NETWORK -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Network</h2>
           </div>
-          <div class="cmd">
-            <code
-              ><span class="keyword">if</span> [[ <span class="var">$VAR</span>
-              <span class="keyword">==</span>
-              <span class="arg">"value"</span> ]];
-              <span class="keyword">then</span> ...
-              <span class="keyword">fi</span></code
-            >
-            <span class="desc">Conditional statement</span>
+          <div class="commands">
+            <div class="cmd">
+              <code>ping <span class="arg">&lt;host&gt;</span></code>
+              <span class="desc">Test connectivity to host</span>
+            </div>
+            <div class="cmd">
+              <code>curl <span class="arg">&lt;url&gt;</span></code>
+              <span class="desc">Fetch URL content</span>
+            </div>
+            <div class="cmd">
+              <code
+                >curl <span class="flag">-O</span>
+                <span class="arg">&lt;url&gt;</span></code
+              >
+              <span class="desc">Download file from URL</span>
+            </div>
+            <div class="cmd">
+              <code>wget <span class="arg">&lt;url&gt;</span></code>
+              <span class="desc">Download file</span>
+            </div>
+            <div class="cmd">
+              <code>ip <span class="flag">addr</span></code>
+              <span class="desc">Show network interfaces</span>
+            </div>
+            <div class="cmd">
+              <code>netstat <span class="flag">-tuln</span></code>
+              <span class="desc">Show listening ports</span>
+            </div>
+            <div class="cmd">
+              <code>ss <span class="flag">-tuln</span></code>
+              <span class="desc"
+                >Modern alternative to netstat
+                <span class="tag tag-tip">faster</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code
+                >scp <span class="arg">&lt;file&gt;</span>
+                <span class="arg">&lt;user&gt;</span>@<span class="arg"
+                  >&lt;host&gt;</span
+                >:<span class="arg">&lt;path&gt;</span></code
+              >
+              <span class="desc">Secure copy to remote host</span>
+            </div>
           </div>
-          <div class="cmd">
-            <code
-              ><span class="keyword">for</span> <span class="var">i</span>
-              <span class="keyword">in</span> {1..10};
-              <span class="keyword">do</span> echo <span class="var">$i</span>;
-              <span class="keyword">done</span></code
-            >
-            <span class="desc">For loop</span>
+        </div>
+
+        <!-- VARIABLES & ENV -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Variables & Environment</h2>
           </div>
-          <div class="cmd">
-            <code
-              ><span class="keyword">while</span> [[
-              <span class="var">$VAR</span> <span class="keyword">-lt</span> 10
-              ]]; <span class="keyword">do</span> ...
-              <span class="keyword">done</span></code
-            >
-            <span class="desc">While loop</span>
+          <div class="commands">
+            <div class="cmd">
+              <code
+                ><span class="var">VAR</span>=<span class="arg"
+                  >"value"</span
+                ></code
+              >
+              <span class="desc">Set variable</span>
+            </div>
+            <div class="cmd">
+              <code>echo <span class="var">$VAR</span></code>
+              <span class="desc">Print variable value</span>
+            </div>
+            <div class="cmd">
+              <code
+                >export <span class="var">VAR</span>=<span class="arg"
+                  >"value"</span
+                ></code
+              >
+              <span class="desc">Set environment variable</span>
+            </div>
+            <div class="cmd">
+              <code>env</code>
+              <span class="desc">Show all environment variables</span>
+            </div>
+            <div class="cmd">
+              <code>printenv <span class="var">VAR</span></code>
+              <span class="desc">Print specific environment variable</span>
+            </div>
+            <div class="cmd">
+              <code>unset <span class="var">VAR</span></code>
+              <span class="desc">Remove variable</span>
+            </div>
+            <div class="cmd">
+              <code>source <span class="arg">&lt;file&gt;</span></code>
+              <span class="desc">Execute file in current shell</span>
+            </div>
           </div>
-          <div class="cmd">
-            <code>function <span class="var">name</span>() { ... }</code>
-            <span class="desc">Define function</span>
+        </div>
+
+        <!-- ALIASES & HISTORY -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Aliases & History</h2>
           </div>
-          <div class="cmd">
-            <code
-              ><span class="var">$1</span>, <span class="var">$2</span>,
-              <span class="var">$@</span></code
-            >
-            <span class="desc">Positional parameters — script arguments</span>
+          <div class="commands">
+            <div class="cmd">
+              <code
+                >alias <span class="var">ll</span>=<span class="arg"
+                  >'ls -lah'</span
+                ></code
+              >
+              <span class="desc">Create command alias</span>
+            </div>
+            <div class="cmd">
+              <code>alias</code>
+              <span class="desc">List all aliases</span>
+            </div>
+            <div class="cmd">
+              <code>unalias <span class="var">ll</span></code>
+              <span class="desc">Remove alias</span>
+            </div>
+            <div class="cmd">
+              <code>history</code>
+              <span class="desc">Show command history</span>
+            </div>
+            <div class="cmd">
+              <code>!<span class="arg">n</span></code>
+              <span class="desc">Execute command number n from history</span>
+            </div>
+            <div class="cmd">
+              <code>!!</code>
+              <span class="desc"
+                >Execute last command
+                <span class="tag tag-tip">handy</span></span
+              >
+            </div>
+            <div class="cmd">
+              <code>sudo !!</code>
+              <span class="desc">Re-run last command as root</span>
+            </div>
+            <div class="cmd">
+              <code><span class="keyword">Ctrl+R</span></code>
+              <span class="desc">Reverse search command history</span>
+            </div>
           </div>
-          <div class="cmd">
-            <code><span class="var">$?</span></code>
-            <span class="desc">Exit status of last command</span>
+        </div>
+
+        <!-- SCRIPTING BASICS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h2>Scripting Basics</h2>
           </div>
-          <div class="cmd">
-            <code>exit <span class="arg">0</span></code>
-            <span class="desc">Exit script with status code</span>
+          <div class="commands">
+            <div class="cmd">
+              <code><span class="keyword">#!/bin/bash</span></code>
+              <span class="desc">Shebang — first line of script</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="keyword">if</span> [[
+                <span class="var">$VAR</span>
+                <span class="keyword">==</span>
+                <span class="arg">"value"</span> ]];
+                <span class="keyword">then</span> ...
+                <span class="keyword">fi</span></code
+              >
+              <span class="desc">Conditional statement</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="keyword">for</span> <span class="var">i</span>
+                <span class="keyword">in</span> {1..10};
+                <span class="keyword">do</span> echo
+                <span class="var">$i</span>;
+                <span class="keyword">done</span></code
+              >
+              <span class="desc">For loop</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="keyword">while</span> [[
+                <span class="var">$VAR</span>
+                <span class="keyword">-lt</span> 10 ]];
+                <span class="keyword">do</span> ...
+                <span class="keyword">done</span></code
+              >
+              <span class="desc">While loop</span>
+            </div>
+            <div class="cmd">
+              <code>function <span class="var">name</span>() { ... }</code>
+              <span class="desc">Define function</span>
+            </div>
+            <div class="cmd">
+              <code
+                ><span class="var">$1</span>, <span class="var">$2</span>,
+                <span class="var">$@</span></code
+              >
+              <span class="desc">Positional parameters — script arguments</span>
+            </div>
+            <div class="cmd">
+              <code><span class="var">$?</span></code>
+              <span class="desc">Exit status of last command</span>
+            </div>
+            <div class="cmd">
+              <code>exit <span class="arg">0</span></code>
+              <span class="desc">Exit script with status code</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>

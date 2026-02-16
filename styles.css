@@ -1,0 +1,302 @@
+:root {
+  --bg: #0d0d0d;
+  --surface: #141414;
+  --border: #222;
+  --accent-bash: #22c55e;
+  --accent-git: #f97316;
+  --accent2-bash: #4ade80;
+  --accent2-git: #fb923c;
+  --text: #e5e5e5;
+  --muted: #666;
+  --code-bg: #1a1a1a;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --red: #f87171;
+  --yellow: #fbbf24;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Syne", sans-serif;
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  gap: 24px;
+}
+
+.nav-brand {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand .terminal-icon {
+  font-size: 1.2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+}
+
+.nav-links a {
+  padding: 6px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: var(--muted);
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a.bash-link.active {
+  color: var(--accent-bash);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.nav-links a.git-link.active {
+  color: var(--accent-git);
+  background: rgba(249, 115, 22, 0.1);
+}
+
+/* Main Content */
+main {
+  padding: 48px 24px;
+}
+
+header {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+
+header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+body.bash-page header h1 span {
+  color: var(--accent-bash);
+}
+
+body.git-page header h1 span {
+  color: var(--accent-git);
+}
+
+header p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.bash-page .card-header .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-bash);
+  flex-shrink: 0;
+}
+
+body.git-page .card-header .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-git);
+  flex-shrink: 0;
+}
+
+body.bash-page .card-header h2 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-bash);
+}
+
+body.git-page .card-header h2 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-git);
+}
+
+.commands {
+  padding: 8px 0;
+}
+
+.cmd {
+  padding: 10px 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.cmd:last-child {
+  border-bottom: none;
+}
+
+body.bash-page .cmd:hover {
+  background: rgba(34, 197, 94, 0.04);
+}
+
+body.git-page .cmd:hover {
+  background: rgba(249, 115, 22, 0.04);
+}
+
+.cmd code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--green);
+    white-space: normal;
+    overflow-wrap: break-word;
+    display: block;
+}
+
+.cmd code .flag {
+  color: var(--blue);
+}
+
+.cmd code .arg {
+  color: var(--purple);
+}
+
+.cmd code .keyword {
+  color: var(--yellow);
+}
+
+.cmd code .var {
+  color: var(--accent2-bash);
+}
+
+.cmd .desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.tag-danger {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--red);
+}
+
+.tag-tip {
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--green);
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .wide {
+    grid-column: unset;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  main {
+    padding: 32px 16px;
+  }
+}
