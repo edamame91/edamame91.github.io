@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git Cheat Sheet</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d0d0d;
+        --surface: #141414;
+        --border: #222;
+        --accent: #f97316;
+        --accent2: #fb923c;
+        --text: #e5e5e5;
+        --muted: #666;
+        --code-bg: #1a1a1a;
+        --green: #4ade80;
+        --blue: #60a5fa;
+        --purple: #a78bfa;
+        --red: #f87171;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Syne", sans-serif;
+        min-height: 100vh;
+        padding: 48px 24px;
+      }
+
+      header {
+        max-width: 1100px;
+        margin: 0 auto 48px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 24px;
+      }
+
+      header h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      header h1 span {
+        color: var(--accent);
+      }
+
+      header p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .grid {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card-header .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .card-header h2 {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .commands {
+        padding: 8px 0;
+      }
+
+      .cmd {
+        padding: 10px 18px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s;
+      }
+
+      .cmd:last-child {
+        border-bottom: none;
+      }
+
+      .cmd:hover {
+        background: rgba(249, 115, 22, 0.04);
+      }
+
+      .cmd code {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--green);
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .cmd code .flag {
+        color: var(--blue);
+      }
+      .cmd code .arg {
+        color: var(--purple);
+      }
+      .cmd code .keyword {
+        color: var(--accent);
+      }
+
+      .cmd .desc {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 0.6rem;
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: 700;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+
+      .tag-danger {
+        background: rgba(248, 113, 113, 0.15);
+        color: var(--red);
+      }
+      .tag-tip {
+        background: rgba(74, 222, 128, 0.1);
+        color: var(--green);
+      }
+
+      .wide {
+        grid-column: 1 / -1;
+      }
+
+      @media (max-width: 600px) {
+        .wide {
+          grid-column: unset;
+        }
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Git <span>Cheat Sheet</span></h1>
+      <p>v2.x · most useful commands</p>
+    </header>
+
+    <div class="grid">
+      <!-- SETUP -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Setup</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code
+              >git config <span class="flag">--global</span> user.name
+              <span class="arg">"Name"</span></code
+            >
+            <span class="desc">Set your name globally</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git config <span class="flag">--global</span> user.email
+              <span class="arg">"email"</span></code
+            >
+            <span class="desc">Set your email globally</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git config <span class="flag">--global</span> core.editor
+              <span class="arg">vim</span></code
+            >
+            <span class="desc">Set default editor</span>
+          </div>
+          <div class="cmd">
+            <code>git config <span class="flag">--list</span></code>
+            <span class="desc">Show all config values</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- INIT & CLONE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Init & Clone</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git init</code>
+            <span class="desc">Initialise a new repo in current directory</span>
+          </div>
+          <div class="cmd">
+            <code>git clone <span class="arg">&lt;url&gt;</span></code>
+            <span class="desc">Clone a remote repo</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git clone <span class="arg">&lt;url&gt;</span>
+              <span class="arg">&lt;dir&gt;</span></code
+            >
+            <span class="desc">Clone into a specific folder</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git clone <span class="flag">--depth</span> 1
+              <span class="arg">&lt;url&gt;</span></code
+            >
+            <span class="desc">Shallow clone — latest commit only</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGING -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Staging</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git status</code>
+            <span class="desc">Show working tree status</span>
+          </div>
+          <div class="cmd">
+            <code>git add <span class="arg">&lt;file&gt;</span></code>
+            <span class="desc">Stage a specific file</span>
+          </div>
+          <div class="cmd">
+            <code>git add <span class="flag">.</span></code>
+            <span class="desc">Stage all changes</span>
+          </div>
+          <div class="cmd">
+            <code>git add <span class="flag">-p</span></code>
+            <span class="desc">Interactively stage chunks — very useful</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git restore <span class="flag">--staged</span>
+              <span class="arg">&lt;file&gt;</span></code
+            >
+            <span class="desc">Unstage a file without discarding changes</span>
+          </div>
+          <div class="cmd">
+            <code>git restore <span class="arg">&lt;file&gt;</span></code>
+            <span class="desc"
+              >Discard working directory changes
+              <span class="tag tag-danger">destructive</span></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMITS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Commits</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code
+              >git commit <span class="flag">-m</span>
+              <span class="arg">"message"</span></code
+            >
+            <span class="desc">Commit with a message</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git commit <span class="flag">-am</span>
+              <span class="arg">"message"</span></code
+            >
+            <span class="desc">Stage tracked files and commit in one step</span>
+          </div>
+          <div class="cmd">
+            <code>git commit <span class="flag">--amend</span></code>
+            <span class="desc"
+              >Edit the last commit message or add staged changes
+              <span class="tag tag-danger">rewrites history</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code>git commit <span class="flag">--amend --no-edit</span></code>
+            <span class="desc"
+              >Add staged changes to last commit, keep message</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- BRANCHES -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Branches</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git branch</code>
+            <span class="desc">List local branches</span>
+          </div>
+          <div class="cmd">
+            <code>git branch <span class="arg">&lt;name&gt;</span></code>
+            <span class="desc">Create a new branch</span>
+          </div>
+          <div class="cmd">
+            <code>git switch <span class="arg">&lt;name&gt;</span></code>
+            <span class="desc">Switch to a branch</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git switch <span class="flag">-c</span>
+              <span class="arg">&lt;name&gt;</span></code
+            >
+            <span class="desc"
+              >Create and switch in one step
+              <span class="tag tag-tip">handy</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code
+              >git branch <span class="flag">-d</span>
+              <span class="arg">&lt;name&gt;</span></code
+            >
+            <span class="desc">Delete a merged branch</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git branch <span class="flag">-D</span>
+              <span class="arg">&lt;name&gt;</span></code
+            >
+            <span class="desc"
+              >Force delete a branch
+              <span class="tag tag-danger">destructive</span></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- MERGING & REBASING -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Merge & Rebase</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git merge <span class="arg">&lt;branch&gt;</span></code>
+            <span class="desc">Merge branch into current</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git merge <span class="flag">--no-ff</span>
+              <span class="arg">&lt;branch&gt;</span></code
+            >
+            <span class="desc">Merge and always create a merge commit</span>
+          </div>
+          <div class="cmd">
+            <code>git rebase <span class="arg">&lt;branch&gt;</span></code>
+            <span class="desc"
+              >Rebase current branch onto another
+              <span class="tag tag-danger">rewrites history</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code
+              >git rebase <span class="flag">-i</span> HEAD~<span class="arg"
+                >n</span
+              ></code
+            >
+            <span class="desc"
+              >Interactive rebase — squash, reorder, edit last n commits
+              <span class="tag tag-tip">handy</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code>git rebase <span class="flag">--abort</span></code>
+            <span class="desc">Cancel an in-progress rebase</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- REMOTE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Remote</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git remote <span class="flag">-v</span></code>
+            <span class="desc">List remotes with URLs</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git remote add <span class="arg">origin &lt;url&gt;</span></code
+            >
+            <span class="desc">Add a remote</span>
+          </div>
+          <div class="cmd">
+            <code>git fetch</code>
+            <span class="desc">Download remote changes without merging</span>
+          </div>
+          <div class="cmd">
+            <code>git pull</code>
+            <span class="desc">Fetch and merge remote changes</span>
+          </div>
+          <div class="cmd">
+            <code>git pull <span class="flag">--rebase</span></code>
+            <span class="desc"
+              >Fetch and rebase instead of merge
+              <span class="tag tag-tip">cleaner history</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code
+              >git push <span class="flag">-u</span> origin
+              <span class="arg">&lt;branch&gt;</span></code
+            >
+            <span class="desc">Push and set upstream tracking</span>
+          </div>
+          <div class="cmd">
+            <code>git push <span class="flag">--force-with-lease</span></code>
+            <span class="desc"
+              >Safer force push — fails if remote has new commits</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- LOG & DIFF -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Log & Diff</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code
+              >git log <span class="flag">--oneline --graph --all</span></code
+            >
+            <span class="desc"
+              >Compact visual branch history
+              <span class="tag tag-tip">handy</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code
+              >git log <span class="flag">-p</span>
+              <span class="arg">&lt;file&gt;</span></code
+            >
+            <span class="desc">Show commit history with diffs for a file</span>
+          </div>
+          <div class="cmd">
+            <code>git diff</code>
+            <span class="desc">Show unstaged changes</span>
+          </div>
+          <div class="cmd">
+            <code>git diff <span class="flag">--staged</span></code>
+            <span class="desc">Show staged changes</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git diff <span class="arg">&lt;branch1&gt;</span>..<span
+                class="arg"
+                >&lt;branch2&gt;</span
+              ></code
+            >
+            <span class="desc">Diff between two branches</span>
+          </div>
+          <div class="cmd">
+            <code>git blame <span class="arg">&lt;file&gt;</span></code>
+            <span class="desc">Show who changed each line</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STASH -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Stash</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git stash</code>
+            <span class="desc">Stash current changes</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git stash push <span class="flag">-m</span>
+              <span class="arg">"message"</span></code
+            >
+            <span class="desc">Stash with a label</span>
+          </div>
+          <div class="cmd">
+            <code>git stash list</code>
+            <span class="desc">List all stashes</span>
+          </div>
+          <div class="cmd">
+            <code>git stash pop</code>
+            <span class="desc">Apply latest stash and remove it</span>
+          </div>
+          <div class="cmd">
+            <code>git stash apply <span class="arg">stash@{n}</span></code>
+            <span class="desc">Apply a specific stash without removing it</span>
+          </div>
+          <div class="cmd">
+            <code>git stash drop <span class="arg">stash@{n}</span></code>
+            <span class="desc">Delete a specific stash</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNDOING -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Undoing</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git revert <span class="arg">&lt;hash&gt;</span></code>
+            <span class="desc"
+              >Create a new commit that undoes a commit — safe for shared
+              branches</span
+            >
+          </div>
+          <div class="cmd">
+            <code>git reset <span class="flag">--soft</span> HEAD~1</code>
+            <span class="desc">Undo last commit, keep changes staged</span>
+          </div>
+          <div class="cmd">
+            <code>git reset <span class="flag">--mixed</span> HEAD~1</code>
+            <span class="desc">Undo last commit, keep changes unstaged</span>
+          </div>
+          <div class="cmd">
+            <code>git reset <span class="flag">--hard</span> HEAD~1</code>
+            <span class="desc"
+              >Undo last commit, discard all changes
+              <span class="tag tag-danger">destructive</span></span
+            >
+          </div>
+          <div class="cmd">
+            <code>git reflog</code>
+            <span class="desc"
+              >History of HEAD — recover lost commits
+              <span class="tag tag-tip">lifesaver</span></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- CHERRY PICK & TAGS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Cherry-pick & Tags</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git cherry-pick <span class="arg">&lt;hash&gt;</span></code>
+            <span class="desc">Apply a specific commit to current branch</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git cherry-pick <span class="arg">&lt;hash1&gt;</span>..<span
+                class="arg"
+                >&lt;hash2&gt;</span
+              ></code
+            >
+            <span class="desc">Apply a range of commits</span>
+          </div>
+          <div class="cmd">
+            <code>git tag <span class="arg">&lt;name&gt;</span></code>
+            <span class="desc">Create a lightweight tag</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git tag <span class="flag">-a</span>
+              <span class="arg">&lt;name&gt;</span> <span class="flag">-m</span>
+              <span class="arg">"msg"</span></code
+            >
+            <span class="desc">Create an annotated tag</span>
+          </div>
+          <div class="cmd">
+            <code>git push origin <span class="flag">--tags</span></code>
+            <span class="desc">Push all tags to remote</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="card">
+        <div class="card-header">
+          <div class="dot"></div>
+          <h2>Search</h2>
+        </div>
+        <div class="commands">
+          <div class="cmd">
+            <code>git grep <span class="arg">"pattern"</span></code>
+            <span class="desc">Search working tree for a pattern</span>
+          </div>
+          <div class="cmd">
+            <code
+              >git log <span class="flag">-S</span>
+              <span class="arg">"string"</span></code
+            >
+            <span class="desc"
+              >Find commits that added or removed a string</span
+            >
+          </div>
+          <div class="cmd">
+            <code
+              >git log <span class="flag">--all --grep=</span
+              ><span class="arg">"message"</span></code
+            >
+            <span class="desc">Search commit messages</span>
+          </div>
+          <div class="cmd">
+            <code>git bisect start</code>
+            <span class="desc">Start binary search to find a bad commit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
