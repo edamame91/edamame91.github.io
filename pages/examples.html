@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git Examples - Common Issues</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="examples-page">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="bash.html" class="nav-brand">
+          <span class="terminal-icon">▶</span>
+          <span>Dev Cheatsheets</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="bash.html" class="bash-link">Bash</a></li>
+          <li><a href="git.html" class="git-link">Git</a></li>
+          <li>
+            <a href="examples.html" class="examples-link active">Examples</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <header>
+        <h1>Git <span>Examples</span></h1>
+        <p>Common issues & solutions</p>
+      </header>
+
+      <div class="examples-grid">
+        <!-- Undo Last Commit -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Undo Last Commit (Keep Changes)</h3>
+            <span class="difficulty easy">Easy</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You committed too early and want to add
+              more changes to the commit.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">
+                  Step 1: Undo the commit, keep changes staged
+                </div>
+                <code>git reset --soft HEAD~1</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 2: Make your additional changes
+                </div>
+                <code>git add &lt;files&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 3: Commit again</div>
+                <code>git commit -m "Complete feature"</code>
+              </div>
+            </div>
+            <div class="note note-tip">
+              <strong>Alternative:</strong> Use
+              <code>git commit --amend</code> to add staged changes to the last
+              commit without creating a new one.
+            </div>
+          </div>
+        </div>
+
+        <!-- Fix Wrong Branch -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Made Commits on Wrong Branch</h3>
+            <span class="difficulty medium">Medium</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You made commits on
+              <code>main</code> but they should be on a feature branch.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">
+                  Step 1: Create a new branch (keeps commits)
+                </div>
+                <code>git branch feature-branch</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 2: Reset main to before your commits
+                </div>
+                <code>git reset --hard origin/main</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 3: Switch to your feature branch
+                </div>
+                <code>git switch feature-branch</code>
+              </div>
+            </div>
+            <div class="note note-warning">
+              <strong>Warning:</strong> Only use <code>--hard</code> if you're
+              sure. It discards uncommitted changes.
+            </div>
+          </div>
+        </div>
+
+        <!-- Merge Conflicts -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Resolve Merge Conflicts</h3>
+            <span class="difficulty medium">Medium</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You tried to merge and got conflicts.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">
+                  Step 1: See which files have conflicts
+                </div>
+                <code>git status</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 2: Open conflicted files and look for markers
+                </div>
+                <pre>
+<<<<<<< HEAD
+Your changes
+=======
+Their changes
+>>>>>>> branch-name</pre
+                >
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 3: Edit files to resolve conflicts
+                </div>
+                <div class="step-desc">
+                  Remove conflict markers and keep the code you want
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 4: Mark as resolved</div>
+                <code>git add &lt;resolved-files&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 5: Complete the merge</div>
+                <code>git commit</code>
+              </div>
+            </div>
+            <div class="note note-tip">
+              <strong>Abort:</strong> If you want to cancel the merge:
+              <code>git merge --abort</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accidentally Deleted File -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Recover Deleted File</h3>
+            <span class="difficulty easy">Easy</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You deleted a file and want it back.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">If not yet committed:</div>
+                <code>git restore &lt;file&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  If already committed (get from last commit):
+                </div>
+                <code>git checkout HEAD~1 -- &lt;file&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Find when file was deleted:</div>
+                <code>git log --all --full-history -- &lt;file&gt;</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revert Pushed Commit -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Undo a Commit That's Been Pushed</h3>
+            <span class="difficulty medium">Medium</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You pushed a bad commit and need to
+              undo it safely.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">Step 1: Find the commit hash</div>
+                <code>git log --oneline</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 2: Create a new commit that undoes it
+                </div>
+                <code>git revert &lt;commit-hash&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 3: Push the revert</div>
+                <code>git push</code>
+              </div>
+            </div>
+            <div class="note note-tip">
+              <strong>Why revert?</strong> Using <code>git revert</code> is
+              safer than <code>git reset</code> for shared branches because it
+              preserves history.
+            </div>
+          </div>
+        </div>
+
+        <!-- Stash Work -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Save Work to Switch Branches</h3>
+            <span class="difficulty easy">Easy</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You're working on something but need to
+              switch branches urgently.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">Step 1: Stash your changes</div>
+                <code>git stash push -m "WIP: feature description"</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 2: Switch branches and do your work
+                </div>
+                <code>git switch other-branch</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 3: Return to original branch</div>
+                <code>git switch original-branch</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 4: Restore your work</div>
+                <code>git stash pop</code>
+              </div>
+            </div>
+            <div class="note note-tip">
+              <strong>View stashes:</strong> <code>git stash list</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Update Fork -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Sync Fork with Original Repo</h3>
+            <span class="difficulty medium">Medium</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> Your fork is behind the original
+              repository.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">Step 1: Add upstream remote (once)</div>
+                <code>git remote add upstream &lt;original-repo-url&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 2: Fetch upstream changes</div>
+                <code>git fetch upstream</code>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 3: Merge upstream into your branch
+                </div>
+                <code>git merge upstream/main</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 4: Push updates to your fork</div>
+                <code>git push origin main</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clean Untracked Files -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Remove Untracked Files</h3>
+            <span class="difficulty easy">Easy</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You have generated files or build
+              artifacts to clean up.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">
+                  Step 1: Preview what will be deleted
+                </div>
+                <code>git clean -n</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 2: Delete untracked files</div>
+                <code>git clean -f</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 3: Also remove directories</div>
+                <code>git clean -fd</code>
+              </div>
+            </div>
+            <div class="note note-warning">
+              <strong>Warning:</strong> <code>git clean</code> permanently
+              deletes files. Always preview with <code>-n</code> first!
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Rebase -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Clean Up Commit History</h3>
+            <span class="difficulty hard">Hard</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You have multiple messy commits that
+              should be squashed before merging.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">Step 1: Start interactive rebase</div>
+                <code>git rebase -i HEAD~3</code>
+                <div class="step-desc">
+                  Replace 3 with number of commits to edit
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 2: In the editor, change 'pick' to 'squash'
+                </div>
+                <pre>
+pick abc123 First commit
+squash def456 Fix typo
+squash ghi789 Another fix</pre
+                >
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 3: Save and edit the combined commit message
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 4: Force push if already pushed
+                </div>
+                <code>git push --force-with-lease</code>
+              </div>
+            </div>
+            <div class="note note-warning">
+              <strong>Warning:</strong> Never rebase commits that others are
+              working on!
+            </div>
+          </div>
+        </div>
+
+        <!-- Find Lost Commit -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Recover Lost Commits</h3>
+            <span class="difficulty hard">Hard</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You did a hard reset or rebase and lost
+              commits you need.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">
+                  Step 1: View reflog (history of HEAD)
+                </div>
+                <code>git reflog</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 2: Find the commit you want</div>
+                <div class="step-desc">
+                  Look for the commit hash before the mistake
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-title">
+                  Step 3: Create a branch at that commit
+                </div>
+                <code>git branch recovery &lt;commit-hash&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 4: Or reset to that commit</div>
+                <code>git reset --hard &lt;commit-hash&gt;</code>
+              </div>
+            </div>
+            <div class="note note-tip">
+              <strong>Reflog saves you:</strong> Git keeps reflogs for 90 days
+              by default, so lost commits can usually be recovered!
+            </div>
+          </div>
+        </div>
+
+        <!-- Change Commit Author -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Fix Wrong Author on Commit</h3>
+            <span class="difficulty medium">Medium</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You committed with the wrong
+              name/email.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">For the last commit only:</div>
+                <code
+                  >git commit --amend --author="Name
+                  &lt;email@example.com&gt;"</code
+                >
+              </div>
+              <div class="step">
+                <div class="step-title">Set correct user for this repo:</div>
+                <code>git config user.name "Your Name"</code>
+                <code>git config user.email "email@example.com"</code>
+              </div>
+              <div class="step">
+                <div class="step-title">If already pushed:</div>
+                <code>git push --force-with-lease</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Move Commits -->
+        <div class="example-card">
+          <div class="example-header">
+            <h3>Move Specific Commits to Another Branch</h3>
+            <span class="difficulty medium">Medium</span>
+          </div>
+          <div class="example-content">
+            <div class="scenario">
+              <strong>Scenario:</strong> You want specific commits from one
+              branch on another branch.
+            </div>
+            <div class="solution">
+              <div class="step">
+                <div class="step-title">Step 1: Find commit hashes</div>
+                <code>git log --oneline</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 2: Switch to target branch</div>
+                <code>git switch target-branch</code>
+              </div>
+              <div class="step">
+                <div class="step-title">Step 3: Cherry-pick the commits</div>
+                <code>git cherry-pick &lt;commit-hash&gt;</code>
+              </div>
+              <div class="step">
+                <div class="step-title">For multiple commits:</div>
+                <code
+                  >git cherry-pick &lt;hash1&gt; &lt;hash2&gt;
+                  &lt;hash3&gt;</code
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
