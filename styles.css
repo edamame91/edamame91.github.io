@@ -92,13 +92,36 @@ body {
   background: rgba(249, 115, 22, 0.1);
 }
 
-.nav-links a.examples-link {
-  color: var(--yellow);
+/* View tabs (Cheatsheet / Examples within git page) */
+.view-tabs {
+  max-width: 1100px;
+  margin: 0 auto 32px;
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  gap: 0;
 }
 
-.nav-links a.examples-link.active {
-  color: var(--yellow);
-  background: rgba(251, 191, 36, 0.1);
+.view-tab {
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: "Syne", sans-serif;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.view-tab:hover {
+  color: var(--text);
+}
+
+.view-tab.active {
+  color: var(--accent-git);
+  border-bottom-color: var(--accent-git);
 }
 
 /* Main Content */
@@ -129,10 +152,6 @@ body.bash-page header h1 span {
 
 body.git-page header h1 span {
   color: var(--accent-git);
-}
-
-body.examples-page header h1 span {
-  color: var(--yellow);
 }
 
 header p {
